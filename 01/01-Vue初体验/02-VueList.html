@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueList</title>
+</head>
+
+<body>
+    <div id="list">
+        <ul>
+            <li v-for="(item, index) in dateList" :key="index">value={{item}},index={{index}}</li>
+        </ul>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#list',
+            data: {
+                dateList: ['2020年1月', '2020年2月', '2020年3月']
+            }
+        })
+    </script>
+</body>
+
+</html>
