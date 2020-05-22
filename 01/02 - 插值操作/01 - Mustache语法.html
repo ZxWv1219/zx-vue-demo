@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustache语法</title>
+</head>
+
+<div id="app">
+    <h2> {{msg + ' | ' + date}}</h2>
+    <h2>{{date}}</h2>
+    <h2>{{counter*2}}</h2>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+    const myApp = new Vue({
+        el: '#app',//绑定需要管理的element
+        data: {
+            msg: 'hello Vue.js',
+            date: '2020年05月22日',
+            counter: 20
+        }
+    })
+</script>
+
+</html>
