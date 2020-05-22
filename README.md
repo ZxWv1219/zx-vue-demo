@@ -47,3 +47,4 @@ init->beforeCreate->created->mounted
 
 ■■■■■■■■■■■■■■ Mustache语法(双大括号{{}}) ■■■■■■■■■■■■
 {{}}括号里可以写一些简单的表达式
+标签内使用v-xxx语法 简写: ':'
