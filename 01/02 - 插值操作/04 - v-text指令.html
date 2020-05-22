@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-text指令</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2 v-text='content'>11111111111111</h2>
+
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const myApp = new Vue({
+            el: '#app',//绑定需要管理的element
+            data: {
+                msg: 'hello Vue.js',
+                content: '哇'
+            }
+        })
+    </script>
+</body>
+
+</html>
