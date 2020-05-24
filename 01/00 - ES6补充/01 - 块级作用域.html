@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>块级作用域</title>
+</head>
+
+<body>
+
+    <button>按钮0</button>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <button>按钮6</button>
+    <script>
+        // {
+        //     var name = '张无忌'
+        //     let lName = '张三丰'
+        //     console.log(name)
+        //     console.log(lName)
+        // }
+        // console.log(name)
+        // console.log(lName)
+
+        //没有块级作用域会引起什么问题呢？
+        //闭包
+        var func
+        {
+            var userName = '周杰伦'
+
+            func = function () {
+                console.log(userName)
+            }
+        }
+        //并不希望别人能改我的名字
+        userName = '周洁轮'
+        func()
+
+
+
+        var btns = document.getElementsByTagName('button')
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', function () {
+                console.log('这是第' + i + '个按钮')
+            })
+            // function btnListener(index) {
+            //     btns[index].addEventListener('click', function () {
+            //         console.log('这是第' + index + '个按钮')
+            //     })
+            // }
+            // btnListener(i) 
+        }
+            //使用let 或 闭包 可以解决问题
+            //ES5中var是没有块级作用域的，ES5之前 if/for是没有作用域的，只的function才有作用域
+            //ES6中的let是有块级作用域的
+    </script>
+</body>
+
+</html>

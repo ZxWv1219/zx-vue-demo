@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>对象字面量的增强写法</title>
+</head>
+
+<body>
+
+    <script>
+        const obj = new Object()
+        const obj1 = {}
+
+        const name = '张无忌'
+        const sex = '男'
+        //ES5写法
+        const person = {
+            name: name,
+            sex: sex,
+            get: function () {
+                return name + ' ' + sex
+            }
+        }
+        console.log('person')
+        console.log(person)
+
+        //ES6
+        const personES6 = {
+            name, sex, get() {
+                return name + ' ' + sex
+            }
+        }
+
+        console.log('personES6')
+        console.log(personES6)
+
+
+
+    </script>
+</body>
+
+</html>

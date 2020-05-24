@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2> {{msg}} {{date}}</h2>
+        <h2> {{msg + ' ' + date}}</h2>
+        <h2> {{getMsg()}}</h2>
+        <h2> {{getMsgComputed}}</h2>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const myApp = new Vue({
+            el: '#app',//绑定需要管理的element
+            data: {
+                msg: 'hello Vue.js',
+                date: '2020年05月22日'
+            },
+            //计算属性 Mustache语法中使用时不需要加‘()’
+            computed: {
+                getMsgComputed: function () {
+                    return this.msg + ' ' + this.date + ' ' + 'computed'
+                }
+            },
+            methods: {
+                getMsg: function () {
+                    return this.msg + ' ' + this.date + ' ' + 'methods'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

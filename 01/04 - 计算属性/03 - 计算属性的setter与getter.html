@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <h2> {{totalPrice}}</h2>
+        <button @click='btnClick()'>修改价格</button>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const myApp = new Vue({
+            el: '#app',//绑定需要管理的element
+            data: {
+                books: [
+                    { id: 1, name: 'C语言编码', price: 200 },
+                    { id: 2, name: 'C++语言编码', price: 150 },
+                    { id: 3, name: 'C#语言编码', price: 100 }
+                ]
+            },
+            //计算属性 Mustache语法中使用时不需要加‘()’
+            computed: {
+                totalPrice: {
+                    //基本上很少使用set属性，需要改变计算属性时，直接改变data属性的值 计算属性就会改变
+                    set: function (value) {
+                        console.log(value)
+                    },
+                    get: function () {
+                        console.log('computed getter')
+                        return this.books.reduce(function (total, currentValue) {
+                            return total + currentValue.price
+                        }, 0)
+                    }
+                }
+            },
+            methods: {
+                btnClick: function () {
+                    this.totalPrice = 250
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

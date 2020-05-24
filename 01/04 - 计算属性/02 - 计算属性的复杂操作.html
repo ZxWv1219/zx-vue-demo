@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Vue.js</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- computed只会计算一次，并监听属性变化时在重新调用计算，性能优势
+            多次调用时建议使用计算属性 computed
+        -->
+        <h2> {{totalPrice}}</h2>
+        <!-- methods每次调用都会计算 -->
+        <h2> {{getTotalPrice()}}</h2>
+
+        <h2> {{totalPrice}}</h2>
+        <h2> {{getTotalPrice()}}</h2>
+
+        <button @click='btnClick()'>修改价格</button>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const myApp = new Vue({
+            el: '#app',//绑定需要管理的element
+            data: {
+                books: [
+                    { id: 1, name: 'C语言编码', price: 200 },
+                    { id: 2, name: 'C++语言编码', price: 150 },
+                    { id: 3, name: 'C#语言编码', price: 100 }
+                ]
+            },
+            //计算属性 Mustache语法中使用时不需要加‘()’,为了命名规则不建议此处使用动词
+            computed: {
+                totalPrice: function () {
+                    console.log('computed')
+                    return this.books.reduce(function (total, currentValue) {
+                        return total + currentValue.price
+                    }, 0)
+                }
+            },
+            methods: {
+                getTotalPrice: function () {
+                    console.log('getTotalPrice')
+                    return this.books.reduce(function (total, currentValue) {
+                        return total + currentValue.price
+                    }, 0)
+                },
+                btnClick: function () {
+                    this.books[0].price = 250
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
