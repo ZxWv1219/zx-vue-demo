@@ -4,14 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v-model的基本使用</title>
+    <title>v-model修饰符</title>
 </head>
 
 <body>
     <div id="app">
-        <!-- <input type="text" v-model='msg'><br> -->
-        <input type="text" :value='msg' @input='valueChange($event)'><br>
-        <label>{{msg}}</label>
+        <!-- 懒加载 lazy ,用户输入完成后才进行绑定-->
+        <input type="text" v-model.lazy="msg"><br>
+        <!-- number -->
+        <!-- <input type="number" v-model.number="msg"><br> -->
+        <!-- trim -->
+        <input type="text" v-model.lazy.trim="msg">
+        <h2>{{typeof msg}}</h2>
     </div>
 
     <script src="../js/vue.js"></script>

@@ -4,14 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v-model的基本使用</title>
+    <title>v-model结合radio</title>
 </head>
 
 <body>
     <div id="app">
-        <!-- <input type="text" v-model='msg'><br> -->
-        <input type="text" :value='msg' @input='valueChange($event)'><br>
-        <label>{{msg}}</label>
+        <label for="man">
+            <input type="radio" name="sex" value='男' v-model="sexValue" id="man">男
+        </label><br>
+        <label for="women">
+            <input type="radio" name="sex" value='女' v-model="sexValue" id="women">女
+        </label><br>
+        <h2>你选择的是：{{sexValue}}</h2>
     </div>
 
     <script src="../js/vue.js"></script>
@@ -19,12 +23,11 @@
         const myApp = new Vue({
             el: '#app',//绑定需要管理的element
             data: {
-                msg: 'hello Vue.js'
+                msg: 'hello Vue.js',
+                sexValue: '女'
             },
             methods: {
-                valueChange(event) {
-                    this.msg = event.target.value
-                }
+
             }
         })
     </script>
