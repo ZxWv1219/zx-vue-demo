@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书籍购物车</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>书籍名称</th>
+                    <th>出版日期</th>
+                    <th>价格</th>
+                    <th>购买数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in books" :key="item.id">
+                    <!-- <td v-for="(bookInfo in book">{{bookInfo}}</td> -->
+                    <td>{{item.id}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.date}}</td>
+                    <!-- <td>￥{{item.price.toFixed(2)}}</td> -->
+                    <!-- <td>{{getPrice(item.price)}}</td> -->
+                    <td>{{item.price | finalPrice}}</td>
+                    <td>
+                        <button @click='btnSubtract(index)' :disabled='item.count<2'>-</button>
+                        {{item.count}}
+                        <button @click='btnAdd(index)'>+</button>
+                    </td>
+                    <td><button @click='btnRemove(index)'>移除</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2>总价格{{totalPrice | finalPrice}}</h2>
+    </div>
+
+    <script src="../js/vue.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
