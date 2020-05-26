@@ -10,7 +10,7 @@
 <body>
     <div id="app">
         <!-- 注意这里的事件名称使用小写，后期使用脚手架时在使用驼峰 -->
-        <cpn :tdata='rootData' @itemclick='onReceive'></cpn>
+        <cpn :tdata='rootData' @itemclick='onReceive' @itemclick1='onReceive1'></cpn>
 
         <h2>接收子组件传过来的值</h2>
         <h2>{{receiveData}}</h2>
@@ -36,7 +36,7 @@
             template: '#cpnTemplate',
             data() {
                 return {
-                    //凯头国瑞亿斯
+                    //凯特国瑞斯
                     categories: [
                         { id: '1', name: '热门' },
                         { id: '2', name: '家用' },
@@ -50,6 +50,7 @@
                     this.obj = item
                     //使用 亿米特 向父组件发送事件请求，注意这里的事件名称使用小写
                     this.$emit('itemclick', item)
+                    this.$emit('itemclick1', { name: '我是张无忌' })
                 }
             },
             props: {
@@ -79,6 +80,10 @@
             methods: {
                 onReceive(item) {
                     this.receiveData = item
+                },
+                onReceive1(item1) {
+                    console.log(item1)
+                    // this.receiveData = item
                 }
             }
         })

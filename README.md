@@ -49,3 +49,22 @@ init->beforeCreate->created->mounted
 {{}}括号里可以写一些简单的表达式
 标签内使用v-xxx语法 简写: ':'
 
+■■■■■■■■■■■■■■ 2020-05-26 回顾 ■■■■■■■■■■■■■■
+### 一.计算属性
+#### 1. 计算属性本质
+* fullName:{ set(),get() }
+#### 2. 计算属性 computed与methods的对比
+ * 计算属性在多次使用时只会调用一次,而 methods每次都会执行
+ * 它有缓存的
+### 二.事件监听
+#### 2.1 事件监听的基本使用
+* v-on:事件名 或者 @事件名
+#### 2.2 参数问题
+* btnClick
+* btnClick($event)
+* btnClick(xxx,$event)
+#### 2.3 修饰符
+* stop
+* prevent
+* once
+* enter
