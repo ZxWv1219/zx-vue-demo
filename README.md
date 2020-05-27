@@ -45,7 +45,7 @@ Vue的生命周期？
 初始化->执操作->执行回调
 init->beforeCreate->created->mounted
 
-■■■■■■■■■■■■■■ Mustache语法(双大括号{{}}) ■■■■■■■■■■■■
+■■■■■■■■■■■■■■ Mustache（吗斯踏区）语法(双大括号{{}}) ■■■■■■■■■■■■
 {{}}括号里可以写一些简单的表达式
 标签内使用v-xxx语法 简写: ':'
 
@@ -53,12 +53,12 @@ init->beforeCreate->created->mounted
 ### 一.计算属性
 #### 1. 计算属性本质
 * fullName:{ set(),get() }
-#### 2. 计算属性 computed与methods的对比
+#### 2. 计算属性 computed（肯剖优体）与methods（梅艾斯恩斯）的对比
  * 计算属性在多次使用时只会调用一次,而 methods每次都会执行
  * 它有缓存的
 ### 二.事件监听
 #### 2.1 事件监听的基本使用
-* v-on:事件名 或者 @事件名
+* v-on:事件名 或者 v-bind(威伊杠拜暗德)/@事件名
 #### 2.2 参数问题
 * btnClick
 * btnClick($event)
