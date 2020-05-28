@@ -8,9 +8,12 @@
 
 //cnpm install --save -dev css-loader
 
+//npm install --save-dev less-loader less
+
 const { add, mul } = require('./js/mathUtils')
 import * as info from './js/info.js'
 require('./css/normal.css')
+require('./css/special.less')
 
 add(2, 2)
 console.log(info);
