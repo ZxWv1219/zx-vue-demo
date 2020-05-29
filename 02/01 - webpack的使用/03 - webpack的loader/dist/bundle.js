@@ -440,11 +440,17 @@ function toComment(sourceMap) {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_info_js__ = __webpack_require__(4);
+
+
+var _info = __webpack_require__(3);
+
+var info = _interopRequireWildcard(_info);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 //1.npm init 先对项目进行初始化
 //2.命令映射 package.json  scripts { 字段名：需要执行的命令}。
 //例：webpack->npm run build
@@ -457,49 +463,58 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 //npm install --save-dev less-loader less
 
-const { add, mul } = __webpack_require__(3)
+//npm install --save -dev babel-loader@7 babel-core babel-preset-es2015
+var _require = __webpack_require__(4),
+    add = _require.add,
+    mul = _require.mul;
 
-__webpack_require__(5)
-__webpack_require__(9)
+__webpack_require__(5);
+__webpack_require__(9);
 
-add(2, 2)
-console.log(__WEBPACK_IMPORTED_MODULE_0__js_info_js__);
-
+add(2, 2);
+console.log(info);
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var name = '张无忌';
+var age = 18;
+var height = 1.89;
+exports.default = {
+    name: name,
+    age: age,
+    height: height
+};
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 function add(num1, num2) {
     console.log('add');
 
-    return num1 + num2
+    return num1 + num2;
 }
 
 function mul(num1, num2) {
     console.log('mul');
-    return num1 * num2
+    return num1 * num2;
 }
 
 module.exports = {
-    add,
-    mul
-}
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var name = '张无忌'
-var age = 18
-var height = 1.89
-/* harmony default export */ __webpack_exports__["default"] = ({
-    name,
-    age,
-    height
-});
+    add: add,
+    mul: mul
+};
 
 /***/ }),
 /* 5 */
@@ -587,7 +602,7 @@ module.exports = function (url, options) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "36bac94eca79b711755329b44e946322.jpg");
+/* harmony default export */ __webpack_exports__["default"] = (__webpack_require__.p + "img/test.36bac94e.jpg");
 
 /***/ }),
 /* 9 */

@@ -11,10 +11,30 @@
 //npm install --save-dev less-loader less
 
 //npm install --save -dev babel-loader@7 babel-core babel-preset-es2015
+
+//npm install --save vue
+
+//npm install --save -dev vue-loader vue-template-compiler
+
 const { add, mul } = require('./js/mathUtils')
 import * as info from './js/info.js'
 require('./css/normal.css')
 require('./css/special.less')
+import Vue from 'vue'
+//import temp1 from './vue/template1.js'
+import temp2 from './vue/template.vue'
+
+const app = new Vue({
+    el: '#app',
+    //template 会替换el内部的内容
+    template: `<temp2></temp2>`,
+    data: {
+        msg: 'Hello Vue1'
+    },
+    components: {
+        temp2
+    }
+})
 
 add(2, 2)
 console.log(info);

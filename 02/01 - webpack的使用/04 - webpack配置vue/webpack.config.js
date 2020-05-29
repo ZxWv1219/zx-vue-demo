@@ -1,4 +1,5 @@
 const path = require('path')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     entry: './src/main.js',
@@ -7,6 +8,10 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: './dist/' //在打包时自动在url前面拼接./dist/
     },
+    plugins: [
+        // make sure to include the plugin for the magic
+        new VueLoaderPlugin()
+    ],
     module: {
         rules: [
             {
@@ -50,8 +55,19 @@ module.exports = {
                         presets: ['es2015']
                     }
                 }
+            }, {
+                test: /\.vue$/,
+                use: {
+                    loader: 'vue-loader'
+                }
             }
 
         ]
+    },
+    resolve: {
+        //别名
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        }
     }
 }
