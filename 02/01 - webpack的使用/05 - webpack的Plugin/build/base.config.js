@@ -17,8 +17,7 @@ module.exports = {
         new webpack.BannerPlugin('版权设置'),
         new HtmlWebpackPlugin({
             template: 'index.html'
-        }),
-        new UglifyjsWebpackPlugin()
+        })
     ],
     module: {
         rules: [
@@ -77,10 +76,5 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js'
         }
-    },
-    devServer: {
-        contentBase: './dist',
-        inline: true,
-        port: 1095
     }
 }

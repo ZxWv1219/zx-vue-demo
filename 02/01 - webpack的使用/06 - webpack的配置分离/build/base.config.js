@@ -7,7 +7,7 @@ const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 module.exports = {
     entry: './src/main.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'bundle.js',
         // publicPath: './dist/' //在打包时自动在url前面拼接./dist/
     },
@@ -17,8 +17,7 @@ module.exports = {
         new webpack.BannerPlugin('版权设置'),
         new HtmlWebpackPlugin({
             template: 'index.html'
-        }),
-        new UglifyjsWebpackPlugin()
+        })
     ],
     module: {
         rules: [
@@ -46,7 +45,7 @@ module.exports = {
                         options: {
                             //文件大小   当小于这个值时将会转成base64字符串进行展示
                             //当大于 limit时 将在dist文件夹里生成一个文件
-                            limit: 2000,
+                            limit: 500,
                             //配置文件存放路径与名称格式
                             name: 'img/[name].[hash:8].[ext]'
                         }
@@ -77,10 +76,5 @@ module.exports = {
         alias: {
             'vue$': 'vue/dist/vue.esm.js'
         }
-    },
-    devServer: {
-        contentBase: './dist',
-        inline: true,
-        port: 1095
     }
 }

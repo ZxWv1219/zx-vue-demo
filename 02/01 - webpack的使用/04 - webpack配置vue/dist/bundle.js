@@ -13275,7 +13275,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("e:\\workspace\\vue\\demo\\zx-vue-demo\\02\\01 - webpack的使用\\04 - webpack配置vue\\node_modules\\vue-hot-reload-api\\dist\\index.js")
+  var api = require("E:\\workspace\\vue\\demo\\zx-vue-demo\\02\\01 - webpack的使用\\04 - webpack配置vue\\node_modules\\vue-hot-reload-api\\dist\\index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
@@ -13364,7 +13364,7 @@ var component = Object(__WEBPACK_IMPORTED_MODULE_3__node_modules_vue_loader_lib_
 
 /* hot reload */
 if (false) {
-  var api = require("e:\\workspace\\vue\\demo\\zx-vue-demo\\02\\01 - webpack的使用\\04 - webpack配置vue\\node_modules\\vue-hot-reload-api\\dist\\index.js")
+  var api = require("E:\\workspace\\vue\\demo\\zx-vue-demo\\02\\01 - webpack的使用\\04 - webpack配置vue\\node_modules\\vue-hot-reload-api\\dist\\index.js")
   api.install(require('vue'))
   if (api.compatible) {
     module.hot.accept()
