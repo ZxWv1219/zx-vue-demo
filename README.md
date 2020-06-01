@@ -68,3 +68,13 @@ init->beforeCreate->created->mounted
 * prevent
 * once
 * enter
+
+### VUE CLI 脚手架安装
+>npm install @vue/cli -g
+
+>npm install @vue/cli-init -g
+
+### runtime compliler 与runtime only的区别
+vue init webpack runtimecompiler
+
+vue init webpack runtimeonly
