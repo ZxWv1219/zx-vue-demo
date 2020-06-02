@@ -71,10 +71,19 @@ init->beforeCreate->created->mounted
 
 ### VUE CLI 脚手架安装
 >npm install @vue/cli -g
-
+### VUE 使用CLI2 时需要安装
 >npm install @vue/cli-init -g
 
-### runtime compliler 与runtime only的区别
-vue init webpack runtimecompiler
+* 如果安装不上时可以执行以下命令,管理员身份执行
+>npm clean cache --force
 
-vue init webpack runtimeonly
+### CLI 2 创建项目
+>vue init webpack  项目名称
+
+### runtime compliler 与runtime only的区别
+* vue init webpack runtimecompiler
+* vue init webpack runtimeonly
+
+### CLI 3 创建项目
+>vue create 项目名称
+* 查看CLI 3的配置

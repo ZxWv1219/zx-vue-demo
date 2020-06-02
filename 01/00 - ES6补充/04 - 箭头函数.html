@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04 - 箭头函数</title>
+</head>
+
+<body>
+    <script>
+        //普通定义
+        const funcNomal = function () {
+
+        }
+        //字面量
+        const obj = {
+            func() {
+
+            },
+            func1() {
+
+            }
+        }
+
+        //箭头函数,类似于C# 里边的Lamada 表达式
+        //无参
+        const func1 = () => {
+
+        }
+        //无参只有一行代码时
+        const func2 = () => console.log('箭头');
+
+        //1个参数
+        const func3 = (param1) => {
+
+        }
+        const func4 = param1 => {
+
+        }
+        //多个参数
+        const func5 = (param1, param2, ...obj) => {
+
+        }
+
+        //this 的使用
+        // setTimeout(() => {
+        //     console.log(this)
+        // }, 1000)
+        // setTimeout(function () {
+        //     console.log(this)
+        // }, 1000)
+
+        // //字面量
+        // const obj1 = {
+        //     func() {
+        //         //this 的使用
+        //         setTimeout(function () {
+        //             console.log(this)
+        //         }, 1000)
+        //     },
+        //     func1() {
+        //         //this 的使用
+        //         setTimeout(() => {
+        //             console.log(this)
+        //         }, 1000)
+        //     }
+        // }
+        // obj1.func()
+        // //结论 箭头函数中的this 引用的是就是最近作用域中的this
+        // obj1.func1()
+
+
+        const obj1 = {
+            func() {
+                //this 的使用
+                setTimeout(function () {
+                    setTimeout(function () {
+                        console.log(this) //window
+                    }, 100)
+                    setTimeout(() => {
+                        console.log(this) //window
+                    }, 100)
+                }, 100)
+            },
+            func1() {
+                //this 的使用
+                setTimeout(() => {
+                    setTimeout(function () {
+                        console.log(this) //window
+                    }, 100)
+                    setTimeout(() => {
+                        console.log(this) //obj1
+                    }, 100)
+                }, 100)
+            }
+        }
+
+        obj1.func()
+        //结论 箭头函数中的this 引用的是就是最近作用域中的this
+        obj1.func1()
+    </script>
+</body>
+
+</html>
