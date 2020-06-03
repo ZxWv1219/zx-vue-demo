@@ -88,3 +88,5 @@ init->beforeCreate->created->mounted
 >vue create 项目名称
 * 查看CLI 3的配置
 >vue ui
+
+
