@@ -89,4 +89,4 @@ init->beforeCreate->created->mounted
 * 查看CLI 3的配置
 >vue ui
 
-
+### 所有的组件都继承vue 的原型

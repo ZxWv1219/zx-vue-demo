@@ -12,15 +12,18 @@ export default {
   data() {
     return {
       param: this.$route.params.userid
-    }
+    };
   },
-  computed:{
-    userid(){
+  computed: {
+    userid() {
       //$route 是获取current 路由
-      return this.$route.params.userid
+      return this.$route.params.userid;
     }
   },
-  props: {}
+  created() {
+    // document.title = "用户";
+    // console.log("created");
+  }
 };
 </script>
 
