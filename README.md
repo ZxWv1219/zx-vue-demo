@@ -1,13 +1,13 @@
 # zx-vue-demo
 2020-05-21
 
-从零开始学vue
+## 从零开始学vue
 
-■■■■■■■■■■■■■■ 01vue的使用 ■■■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ 01vue的使用 ■■■■■■■■■■■■■■
 
-■■■■■■■■■■■■■■ 02vue list 使用 ■■■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ 02vue list 使用 ■■■■■■■■■■■■■■
 
-■■■■■■■■■■■■■■ 03 ■■■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ 03 ■■■■■■■■■■■■■■
 el:type:String/HTML element(document.querySelector())
 data:type:Object/function
 methods:type:fuction
@@ -17,7 +17,7 @@ js中什么是 函数-function？
 
 Vue对象中的除了el,data,methods,还有哪个对象可以定义？？
 
-■■■■■■■■■■■■■■ Vue中的MVVM ■■■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ Vue中的MVVM ■■■■■■■■■■■■■■
 什么是mvvm呢？ Model View ViewModel(Model与View之间的通信桥梁)   Model<--ViewModel-->View。
 View-> Dom
 ViewModel-> Dom Listeners,Data Bindings
@@ -38,18 +38,18 @@ Model->Plain Javascript Object
 
 计数器中，View是哪一部分，model是哪一部分，view model 又是哪一部分?
 
-■■■■■■■■■■■■■■ Vue的生命周期 ■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ Vue的生命周期 ■■■■■■■■■■■■
 什么是生命周期？
 事物从诞生到消亡的整个过程。出生->小学->初中->高中->大学->工作->结婚->生子..............
 Vue的生命周期？
-初始化->执操作->执行回调
-init->beforeCreate->created->mounted
+>初始化->执操作->执行回调
+>init->beforeCreate->created->mounted
 
-■■■■■■■■■■■■■■ Mustache（吗斯踏区）语法(双大括号{{}}) ■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ Mustache（吗斯踏区）语法(双大括号{{}}) ■■■■■■■■■■■■
 {{}}括号里可以写一些简单的表达式
 标签内使用v-xxx语法 简写: ':'
 
-■■■■■■■■■■■■■■ 2020-05-26 回顾 ■■■■■■■■■■■■■■
+### ■■■■■■■■■■■■■■ 2020-05-26 回顾 ■■■■■■■■■■■■■■
 ### 一.计算属性
 #### 1. 计算属性本质
 * fullName:{ set(),get() }
