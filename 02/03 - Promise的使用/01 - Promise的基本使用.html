@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01 - Promise的基本使用</title>
+</head>
+
+<body>
+    <script>
+
+        //1.使用setTimeout
+        setTimeout(() => {
+            console.log('1');
+            setTimeout(() => {
+                console.log('2');
+                setTimeout(() => {
+                    console.log('3');
+                    setTimeout(() => {
+                        console.log('4');
+                    }, 1000)
+                }, 1000)
+            }, 1000)
+        }, 1000)
+
+
+        //参数 -> 函数 (resolve, reject)
+        //resolve , reject 本身也是函数
+        //链式编程
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('hello vue.js')
+            }, 1000)
+        }).then((res) => {
+            console.log(res);//hello vue.js
+            console.log('11');
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            })
+        }).then((res) => {
+            console.log('22');
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            })
+        }).then((res) => {
+            console.log('33');
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            })
+        }).then((res) => {
+            console.log('44');
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve()
+                }, 1000)
+            })
+        })
+    </script>
+</body>
+
+</html>

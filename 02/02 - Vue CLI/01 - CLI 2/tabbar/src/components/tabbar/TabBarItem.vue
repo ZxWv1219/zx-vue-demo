@@ -1,13 +1,13 @@
 <!-- tabbaritem组件 -->
 <template>
-    <div class="tab-bar-item">
+    <div class="tab-bar-item" @click='itemClick'>
         <div v-show='!isActive'>
             <slot name='item-icon'></slot>
         </div>
         <div v-show='isActive'>
             <slot name='item-icon-active'></slot>
         </div>
-        <div :class='{active:isActive}'>
+        <div :style='activeStyle'>
             <slot name='item-text'></slot>
         </div>
     </div>
@@ -21,18 +21,36 @@
     export default {
         //import引入的组件需要注入到对象中才能使用
         components: {},
+        props: {
+            path: String,
+            activeColor: {
+                type: String,
+                default: 'deepPink'
+            }
+        },
         data() {
             //这里存放数据
             return {
-                isActive: true
-            };
+
+            }
         },
         //监听属性 类似于data概念
-        computed: {},
+        computed: {
+            isActive() {
+                return this.$route.path.indexOf(this.path) != -1
+            },
+            activeStyle() {
+                return this.isActive ? { color: this.activeColor } : {}
+            }
+        },
         //监控data中的数据变化
         watch: {},
         //方法集合
-        methods: {},
+        methods: {
+            itemClick() {
+                this.$router.replace(this.path)
+            }
+        },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() { },
         //生命周期 - 挂载完成（可以访问DOM元素）
@@ -60,9 +78,5 @@
         margin-top: 3px;
         /* 去掉图片默认像素 */
         vertical-align: middle;
-    }
-
-    .active {
-        color: coral;
     }
 </style>
