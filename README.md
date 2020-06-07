@@ -91,6 +91,8 @@ Vue的生命周期？
 
 ### 所有的组件都继承vue 的原型
 
+### Promise
+Promise.all()
 
 ### Vuex Mutations 响应式修改属性
 >vue components -> (dispatch) -> actions -> (commit) -> mutations -> state -> vue components
@@ -99,3 +101,8 @@ Vue.set()
 Vue.delete()
 
 * mutaitons 里最好使用同步函数,devtools 无法监听异步操作
+
+### 安装axios
+>npm install --save axios
+
+axios.all()

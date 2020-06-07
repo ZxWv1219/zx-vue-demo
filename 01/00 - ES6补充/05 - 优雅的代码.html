@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1.少写if else
+        // var a
+        // if (a == undefined) a = []
+        // console.log(a);
+
+        // var params = {}
+        //if (params.success) params.success(res)
+
+
+        //优雅写法
+        //或运算,当a有值时会直接赋值给a否则值为[]
+        //大家都知道js的布尔类型判定是
+        //对象是true，非零是true，非空字符串是true
+        //其余的都是false
+        //由此得出
+        //var a = a || [];
+        //  console.log(a);
+
+        //1.与运算（&&）
+        //与运算有可能返回五种结果，true、false、null、NaN、undefined
+        //1.与运算所有项为true情况下，返回最后一个值，注意是值，并不是true
+        //2.与运算有false时返回第一个false，这里的false包括（0、false、null、NaN、undefined）
+        // params.success && params.success(res)
+
+
+        // let a = 11;
+        // let b = 'www';
+        // let c = false;
+        // let d = true;
+
+        // //www
+        // console.log(a && b)
+        // //true
+        // console.log(a && c && b)
+        // //false
+        // console.log(c && a)
+
+
+        var printMsg = function (params) {
+            console.log('打印')
+            console.log(params)
+        }
+        var currentValue = 1
+        switch (currentValue) {
+            case 0:
+                printMsg(currentValue)
+                break
+            case 1:
+                printMsg(currentValue)
+                break
+            case 2:
+                printMsg(currentValue)
+                break
+            case 3:
+                printMsg(currentValue)
+                break
+            case 4:
+                printMsg(currentValue)
+                break
+        }
+
+        //优雅写法
+        const methods = new Map([
+            [0, printMsg],
+            [1, printMsg],
+            [2, printMsg],
+            [3, printMsg],
+            [4, printMsg]
+        ])
+        console.log('**********');
+
+        methods.get(2) && methods.get(2)()
+
+
+        //解构 默认值 
+        var obj = {
+            t: '1'
+        }
+        const { t = '0000' } = obj
+        //当t有值时返回t 否则返回0000
+        console.log(t)
+
+    </script>
+</body>
+
+</html>
