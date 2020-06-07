@@ -62,6 +62,29 @@
                 }, 1000)
             })
         })
+
+
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // resolve('hello vue.js')
+                reject('err msg')
+            }, 1000)
+        }).then(res => {
+
+        }).catch(res => {
+            console.log(res)
+        })
+
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('hello vue.js')
+                // reject('err msg +')
+            }, 1000)
+        }).then(success => {
+            console.log(success)
+        }, err => {
+            console.log(err)
+        })
     </script>
 </body>
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02 - Promise的ALL使用</title>
+</head>
+
+<body>
+    <script>
+        Promise.all([
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('3000')
+                }, 3000)
+            }),
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('1000')
+                }, 1000)
+            }),
+        ]).then(results => {
+            console.log(results)
+        })
+    </script>
+</body>
+
+</html>
