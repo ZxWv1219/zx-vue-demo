@@ -91,7 +91,7 @@ Vue的生命周期？
 
 ### 所有的组件都继承vue 的原型
 
-### Promise
+### Promise 异步结果汇总
 Promise.all()
 
 ### Vuex Mutations 响应式修改属性
@@ -105,4 +105,5 @@ Vue.delete()
 ### 安装axios
 >npm install --save axios
 
-axios.all()
+- 异步结果汇总
+>axios.all()
