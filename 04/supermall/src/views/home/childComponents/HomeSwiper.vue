@@ -1,34 +1,38 @@
 <!--  -->
 <template>
-    <div class id="home">
-        <nav-bar class="home-nav">
-            <div slot="center">购物车</div>
-        </nav-bar>
-        <home-swiper :banners='banners'></home-swiper>
-        <recommend-view :recommends='recommends'></recommend-view>
+    <div class>
+        <swiper>
+            <swiper-item v-for="(item, index) in banners" :key="index">
+                <a :href="item.link">
+                    <img :src="item.image" alt="">
+                </a>
+            </swiper-item>
+        </swiper>
     </div>
 </template>
 
 <script>
     //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
     //例如：import 《组件名称》 from '《组件路径》';
-    import NavBar from '@/components/common/navbar/NavBar'
-    import { getHomeMultidata } from '@/network/homeService'
-    import HomeSwiper from '@/views/home/childComponents/HomeSwiper'
-    import RecommendView from '@/views/home/childComponents/RecommendView'
+    import { Swiper, SwiperItem } from '@/components/common/swiper/index'
 
     export default {
         //import引入的组件需要注入到对象中才能使用
         components: {
-            NavBar,
-            HomeSwiper,
-            RecommendView
+            Swiper,
+            SwiperItem
         },
         data() {
             //这里存放数据
             return {
-                banners: [],
-                recommends: []
+            }
+        },
+        props: {
+            banners: {
+                type: Array,
+                default() {
+                    return []
+                }
             }
         },
         //监听属性 类似于data概念
@@ -41,11 +45,7 @@
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
-            getHomeMultidata().then(res => {
-                console.log(res)
-                this.banners = res.data.data.banner.list
-                this.recommends = res.data.data.recommend.list
-            })
+
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
         mounted() {
@@ -61,8 +61,4 @@
     }
 </script>
 <style scoped>
-    .home-nav {
-        background-color: var(--color-tint);
-        color: #ffffff;
-    }
 </style>
