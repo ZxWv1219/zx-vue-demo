@@ -1,9 +1,11 @@
 <!--  -->
 <template>
-    <div class='tab-control'>
-        <div class="tab-control-item" :class="{active:currentIndex===index}" v-for="(item, index) in titles"
-            :key="index" @click='itemClick(index)'>
-            <span>{{item}}</span>
+    <div class='goods-item'>
+        <img :src="goodsItem.show.img" alt="">
+        <div class="goods-info">
+            <p>{{goodsItem.title}}</p>
+            <span class="price">{{goodsItem.price}}</span>
+            <span class="collect">{{goodsItem.cfav}}</span>
         </div>
     </div>
 </template>
@@ -18,27 +20,25 @@
         data() {
             //这里存放数据
             return {
-                currentIndex: 0
+
             }
         },
         props: {
-            titles: {
-                type: Array,
+            goodsItem: {
+                type: Object,
                 default() {
-                    return []
+                    return {}
                 }
             }
-        },
+        }
+        ,
         //监听属性 类似于data概念
         computed: {},
         //监控data中的数据变化
         watch: {},
         //方法集合
         methods: {
-            itemClick(index) {
-                this.currentIndex = index
-                this.$emit('tabClick', index)
-            }
+
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
@@ -58,28 +58,50 @@
     }
 </script>
 <style scoped>
-    .tab-control {
-        display: flex;
+    .goods-item {
+        padding-bottom: 40px;
+        position: relative;
+        width: 48%;
+    }
+
+    .goods-item img {
+        width: 100%;
+        border-radius: 5px;
+    }
+
+    .goods-info {
+        font-size: 12px;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        overflow: hidden;
         text-align: center;
-        font-size: 15px;
-        height: 40px;
-        line-height: 40px;
-        background-color: #ffffff;
     }
 
-    .tab-control-item {
-        flex: 1;
+    .goods-info p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-bottom: 3px;
     }
 
-    .tab-control-item span {
-        padding: 5px;
-    }
-
-    .active {
+    .goods-info .price {
         color: var(--color-high-text);
+        margin-right: 20px;
     }
 
-    .active span {
-        border-bottom: 3px solid var(--color-tint);
+    .goods-info .collect {
+        position: relative;
+    }
+
+    .goods-info .collect::before {
+        content: '';
+        position: absolute;
+        left: -15px;
+        top: -1px;
+        width: 14px;
+        height: 14px;
+        background: url("~@/assets/img/common/collect.svg") 0 0/14px 14px;
     }
 </style>

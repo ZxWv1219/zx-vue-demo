@@ -1,14 +1,14 @@
 <!--  -->
 <template>
-    <div class id="home">
+    <div id="home">
         <nav-bar class="home-nav">
             <div slot="center">购物车</div>
         </nav-bar>
         <home-swiper :banners='banners'></home-swiper>
         <recommend-view :recommends='recommends'></recommend-view>
         <feature-view></feature-view>
-        <tab-control :titles="['流行','新款','精选']" class="tab-control"></tab-control>
-
+        <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick='tabClick'></tab-control>
+        <goods-list :goods="goodsItem"></goods-list>
         <ul>
             <li>1</li>
             <li>1</li>
@@ -40,22 +40,7 @@
             <li>1</li>
             <li>1</li>
             <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
-            <li>1</li>
+
         </ul>
     </div>
 </template>
@@ -66,6 +51,7 @@
     //common
     import NavBar from '@/components/common/navbar/NavBar'
     import TabControl from '@/components/content/tabControl/TabControl'
+    import GoodsList from '@/components/content/goods/GoodsList'
     //child
     import HomeSwiper from '@/views/home/childComponents/HomeSwiper'
     import RecommendView from '@/views/home/childComponents/RecommendView'
@@ -76,12 +62,18 @@
         getHomeGoods
     } from '@/network/homeService'
 
+    const map = new Map([
+        [0, 'pop'],
+        [1, 'new'],
+        [2, 'sell']
+    ])
 
     export default {
         //import引入的组件需要注入到对象中才能使用
         components: {
             NavBar,
             TabControl,
+            GoodsList,
             HomeSwiper,
             RecommendView,
             FeatureView
@@ -98,17 +90,31 @@
                 // ])
                 goods: {
                     'pop': { page: 0, list: [] },
-                    'news': { page: 0, list: [] },
+                    'new': { page: 0, list: [] },
                     'sell': { page: 0, list: [] }
-                }
+                },
+                currentType: 'pop'
             }
         },
         //监听属性 类似于data概念
-        computed: {},
+        computed: {
+            goodsItem() {
+                return this.goods[this.currentType].list
+            }
+        },
         //监控data中的数据变化
         watch: {},
         //方法集合
         methods: {
+            /**
+             * 事件
+             */
+            tabClick(index) {
+                this.currentType = map.get(index)
+            },
+            /**
+             * 接口方法
+             */
             getHomeMultidata() {
                 getHomeMultidata().then(res => {
                     console.log(res)
@@ -117,11 +123,10 @@
                 })
             },
             getHomeGoods(type) {
-                
+
                 // let good = this.goods.get(type) //map 
                 let good = this.goods[type]
                 let page = good.page + 1
-                console.log(page)
                 //商品数据
                 getHomeGoods(type, page).then(res => {
                     console.log(res)
@@ -135,6 +140,8 @@
         created() {
             this.getHomeMultidata()
             this.getHomeGoods('pop')
+            this.getHomeGoods('new')
+            this.getHomeGoods('sell')
 
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
@@ -153,6 +160,7 @@
 <style scoped>
     #home {
         padding-top: 44px;
+
     }
 
     .home-nav {
@@ -170,5 +178,7 @@
     .tab-control {
         position: sticky;
         top: 44px;
+
+        z-index: 9;
     }
 </style>
