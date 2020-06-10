@@ -1,18 +1,19 @@
 import axios from 'axios'
 
-const req = axios.create({
-    baseURL: "http://123.207.32.32:8000",
-    method: 'get',
-    timeout: 5000
-})
+
 export function request(config) {
+    const req = axios.create({
+        // baseURL: "http://123.207.32.32:8000",
+        baseURL: "http://152.136.185.210:8000/api/n3",
+        method: 'get',
+        timeout: 5000
+    })
     //因特赛pe特斯:拦截器
     //请求拦截
     req.interceptors.request.use(
         config => {
             //1.可以修改配置,参数,头部信息
             //2.显示loading界面
-            console.log(config)
             return config
         },
         err => {
@@ -24,8 +25,8 @@ export function request(config) {
         res => {
             //统一判断返回结果成功,失败,异常,或token失效等
             //隐藏loading界面
-            console.log('*************拦截器response*************')
-            return res
+            console.log('*************拦截器response返回res.data*************')
+            return res.data
         },
         err => {
             console.log(err)

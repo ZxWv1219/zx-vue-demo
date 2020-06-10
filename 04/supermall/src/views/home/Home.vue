@@ -6,29 +6,101 @@
         </nav-bar>
         <home-swiper :banners='banners'></home-swiper>
         <recommend-view :recommends='recommends'></recommend-view>
+        <feature-view></feature-view>
+        <tab-control :titles="['流行','新款','精选']" class="tab-control"></tab-control>
+
+        <ul>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+            <li>1</li>
+        </ul>
     </div>
 </template>
 
 <script>
     //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
     //例如：import 《组件名称》 from '《组件路径》';
+    //common
     import NavBar from '@/components/common/navbar/NavBar'
-    import { getHomeMultidata } from '@/network/homeService'
+    import TabControl from '@/components/content/tabControl/TabControl'
+    //child
     import HomeSwiper from '@/views/home/childComponents/HomeSwiper'
     import RecommendView from '@/views/home/childComponents/RecommendView'
+    import FeatureView from '@/views/home/childComponents/FeatureView'
+    //service
+    import {
+        getHomeMultidata,
+        getHomeGoods
+    } from '@/network/homeService'
+
 
     export default {
         //import引入的组件需要注入到对象中才能使用
         components: {
             NavBar,
+            TabControl,
             HomeSwiper,
-            RecommendView
+            RecommendView,
+            FeatureView
         },
         data() {
             //这里存放数据
             return {
                 banners: [],
-                recommends: []
+                recommends: [],
+                // goods: new Map([
+                //     ['pop', { page: 0, list: [] }],
+                //     ['news', { page: 0, list: [] }],
+                //     ['sell', { page: 0, list: [] }]
+                // ])
+                goods: {
+                    'pop': { page: 0, list: [] },
+                    'news': { page: 0, list: [] },
+                    'sell': { page: 0, list: [] }
+                }
             }
         },
         //监听属性 类似于data概念
@@ -37,15 +109,33 @@
         watch: {},
         //方法集合
         methods: {
-
+            getHomeMultidata() {
+                getHomeMultidata().then(res => {
+                    console.log(res)
+                    this.banners = res.data.banner.list
+                    this.recommends = res.data.recommend.list
+                })
+            },
+            getHomeGoods(type) {
+                
+                // let good = this.goods.get(type) //map 
+                let good = this.goods[type]
+                let page = good.page + 1
+                console.log(page)
+                //商品数据
+                getHomeGoods(type, page).then(res => {
+                    console.log(res)
+                    good.list.push(...res.data.list)
+                    // good.list.concat(res.data.list)
+                    good.page = page
+                })
+            }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
-            getHomeMultidata().then(res => {
-                console.log(res)
-                this.banners = res.data.data.banner.list
-                this.recommends = res.data.data.recommend.list
-            })
+            this.getHomeMultidata()
+            this.getHomeGoods('pop')
+
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
         mounted() {
@@ -61,8 +151,24 @@
     }
 </script>
 <style scoped>
+    #home {
+        padding-top: 44px;
+    }
+
     .home-nav {
         background-color: var(--color-tint);
         color: #ffffff;
+
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+
+        z-index: 9;
+    }
+
+    .tab-control {
+        position: sticky;
+        top: 44px;
     }
 </style>
