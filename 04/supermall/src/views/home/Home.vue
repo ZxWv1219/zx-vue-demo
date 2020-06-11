@@ -4,7 +4,7 @@
         <nav-bar class="home-nav">
             <div slot="center">购物车</div>
         </nav-bar>
-        <scroll class="content" ref='homeScroll'>
+        <scroll class="content" ref='homeScroll' @onScroll='onScroll' :pull-up-load='true'>
             <home-swiper :banners='banners'></home-swiper>
             <recommend-view :recommends='recommends'></recommend-view>
             <feature-view></feature-view>
@@ -12,7 +12,10 @@
             <goods-list :goods="goodsItem"></goods-list>
         </scroll>
         <!-- 监听组件的原生事件时,必需加上.native修饰符 -->
-        <back-top @click.native='backClick'></back-top>
+
+        <back-top @click.native='backClick' v-show="isShowBackTop"></back-top>
+
+
     </div>
 </template>
 
@@ -68,13 +71,17 @@
                     'new': { page: 0, list: [] },
                     'sell': { page: 0, list: [] }
                 },
-                currentType: 'pop'
+                currentType: 'pop',
+                currentPosition: { y: 0 }
             }
         },
         //监听属性 类似于data概念
         computed: {
             goodsItem() {
                 return this.goods[this.currentType].list
+            },
+            isShowBackTop() {
+                return this.currentPosition.y < -999
             }
         },
         //监控data中的数据变化
@@ -89,7 +96,12 @@
             },
             backClick() {
                 // console.log('backClick')
-                this.$refs.homeScroll.scroll
+                //500ms 返回top
+                this.$refs.homeScroll.scrollTo()
+            },
+            onScroll(position) {
+                this.currentPosition = position
+                // console.log(position)
             },
             /**
              * 接口方法

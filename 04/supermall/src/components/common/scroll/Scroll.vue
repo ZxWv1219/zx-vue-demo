@@ -21,13 +21,25 @@
                 scroll: null
             }
         },
+        props: {
+            probeType: {
+                type: Number,
+                default: 0
+            },
+            pullUpLoad: {
+                type: Boolean,
+                default: false
+            }
+        },
         //监听属性 类似于data概念
         computed: {},
         //监控data中的数据变化
         watch: {},
         //方法集合
         methods: {
-
+            scrollTo(x = 0, y = 0, time = 500) {
+                this.scroll.scrollTo(x, y, time)
+            }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
@@ -39,12 +51,14 @@
                 //允许click事件
                 click: true,
                 //监听滚动条位置
-                probeType: 3,
-                pullUpLoad: true
+                probeType: this.probeType,
+                //当pullUpLoad为true时 probeType值为3
+                pullUpLoad: this.pullUpLoad
             })
 
             this.scroll.on('scroll', (position) => {
                 // console.log(position)
+                this.$emit('onScroll', position)
             })
 
             this.scroll.on('pullingUp', () => {
