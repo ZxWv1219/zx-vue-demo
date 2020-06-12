@@ -39,6 +39,10 @@
         methods: {
             scrollTo(x = 0, y = 0, time = 500) {
                 this.scroll.scrollTo(x, y, time)
+            },
+            refresh() {
+                console.log('refresh')                
+                this.scroll.refresh()
             }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
@@ -63,9 +67,10 @@
 
             this.scroll.on('pullingUp', () => {
                 console.log('上拉加载')
-                setTimeout(() => {
-                    this.scroll.finishPullUp()
-                }, 1000)
+                this.$emit('onPullingUp', this.scroll)
+                // setTimeout(() => {
+                //     this.scroll.finishPullUp()
+                // }, 1000)
             })
         },
         beforeCreate() { }, //生命周期 - 创建之前

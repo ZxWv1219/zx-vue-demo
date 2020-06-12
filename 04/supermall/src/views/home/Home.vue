@@ -4,18 +4,15 @@
         <nav-bar class="home-nav">
             <div slot="center">购物车</div>
         </nav-bar>
-        <scroll class="content" ref='homeScroll' @onScroll='onScroll' :pull-up-load='true'>
+        <scroll class="content" ref='homeScroll' @onScroll='onScroll' @onPullingUp='loadMore' :pull-up-load='true'>
             <home-swiper :banners='banners'></home-swiper>
             <recommend-view :recommends='recommends'></recommend-view>
             <feature-view></feature-view>
-            <tab-control :titles="['流行','新款','精选']" class="tab-control" @tabClick='tabClick'></tab-control>
+            <tab-control ref='tabControl' :titles="['流行','新款','精选']" @tabClick='tabClick'></tab-control>
             <goods-list :goods="goodsItem"></goods-list>
         </scroll>
         <!-- 监听组件的原生事件时,必需加上.native修饰符 -->
-
         <back-top @click.native='backClick' v-show="isShowBackTop"></back-top>
-
-
     </div>
 </template>
 
@@ -37,6 +34,8 @@
         getHomeMultidata,
         getHomeGoods
     } from '@/network/homeService'
+    //utils
+    import { debounce } from '@/common/utils'
 
     const map = new Map([
         [0, 'pop'],
@@ -67,12 +66,13 @@
                 //     ['sell', { page: 0, list: [] }]
                 // ])
                 goods: {
-                    'pop': { page: 0, list: [] },
-                    'new': { page: 0, list: [] },
-                    'sell': { page: 0, list: [] }
+                    'pop': { page: 0, list: [], hasNextPage: true },
+                    'new': { page: 0, list: [], hasNextPage: true },
+                    'sell': { page: 0, list: [], hasNextPage: true }
                 },
                 currentType: 'pop',
-                currentPosition: { y: 0 }
+                currentPosition: { y: 0 },
+                tabOffsetTop: 0
             }
         },
         //监听属性 类似于data概念
@@ -89,7 +89,8 @@
         //方法集合
         methods: {
             /**
-             * 事件
+             * tabClick事件
+             * @param index 当前选中的索引值
              */
             tabClick(index) {
                 this.currentType = map.get(index)
@@ -99,9 +100,24 @@
                 //500ms 返回top
                 this.$refs.homeScroll.scrollTo()
             },
+            /**
+             * 监听滚动事件
+             * @param position 滚动坐标
+             */
             onScroll(position) {
                 this.currentPosition = position
                 // console.log(position)
+            },
+            /**
+             * 上拉加载
+             * @param scroll scroll组件本身,从子组件中$emit传出
+             */
+            loadMore(scroll) {
+                // console.log('homeOnPullingUp')
+                this.goods[this.currentType].hasNextPage
+                    && this.getHomeGoods(this.currentType).then(() => {
+                        scroll.finishPullUp()
+                    })
             },
             /**
              * 接口方法
@@ -113,18 +129,30 @@
                     this.recommends = res.data.recommend.list
                 })
             },
+            /**
+             * 获取商品数据
+             * @param type 商品类型
+             */
             getHomeGoods(type) {
-
-                // let good = this.goods.get(type) //map 
-                let good = this.goods[type]
-                let page = good.page + 1
-                //商品数据
-                getHomeGoods(type, page).then(res => {
-                    console.log(res)
-                    good.list.push(...res.data.list)
-                    // good.list.concat(res.data.list)
-                    good.page = page
+                return new Promise((resolve, reject) => {
+                    // let good = this.goods.get(type) //map 
+                    let good = this.goods[type]
+                    let page = good.page + 1
+                    //商品数据
+                    getHomeGoods(type, page).then(res => {
+                        console.log(res)
+                        if (res.data.list && res.data.list.length > 0) {
+                            good.hasNextPage = true
+                            good.list.push(...res.data.list)
+                            // good.list.concat(res.data.list)
+                            good.page = page
+                        } else {
+                            good.hasNextPage = false
+                        }
+                        resolve()
+                    })
                 })
+
             }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
@@ -132,12 +160,19 @@
             this.getHomeMultidata()
             this.getHomeGoods('pop')
             this.getHomeGoods('new')
-            this.getHomeGoods('sell')
-
+            this.getHomeGoods('sell')  
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
         mounted() {
+            //刷新可滚动高度
+            let refresh = debounce(this.$refs.homeScroll.refresh, 100)
+            //事件总线 监听子组件图片加载完成
+            this.$bus.$on('imageFinishLoad', () => {
+                refresh()
+                // console.log('imageFinishLoad')
+            })
 
+            // this.tabOffsetTop = this.$refs.tabControl
         },
         beforeCreate() { }, //生命周期 - 创建之前
         beforeMount() { }, //生命周期 - 挂载之前
@@ -167,12 +202,13 @@
         z-index: 9;
     }
 
+    /* 
     .tab-control {
-        /* position: sticky; */
+        position: sticky;
         top: 44px;
 
         z-index: 9;
-    }
+    } */
 
     .content {
         height: calc(100% - 93px);

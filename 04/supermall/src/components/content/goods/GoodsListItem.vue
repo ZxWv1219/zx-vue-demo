@@ -1,7 +1,8 @@
 <!--  -->
 <template>
     <div class='goods-item'>
-        <img :src="goodsItem.show.img" alt="">
+        <!-- 监听图片加载完成后,刷新滚动条 -->
+        <img :src="goodsItem.show.img" alt="" @load='imageLoad'>
         <div class="goods-info">
             <p>{{goodsItem.title}}</p>
             <span class="price">{{goodsItem.price}}</span>
@@ -30,15 +31,17 @@
                     return {}
                 }
             }
-        }
-        ,
+        },
         //监听属性 类似于data概念
         computed: {},
         //监控data中的数据变化
         watch: {},
         //方法集合
         methods: {
-
+            imageLoad() {
+                //使用事件总线
+                this.$bus.$emit('imageFinishLoad')
+            }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {
