@@ -4,11 +4,15 @@
         <nav-bar class="home-nav">
             <div slot="center">购物车</div>
         </nav-bar>
+        <tab-control ref='tabControl' :titles="['流行','新款','精选']" @tabClick='tabClick' class="tab-control"
+            v-show="isTabFixed">
+        </tab-control>
         <scroll class="content" ref='homeScroll' @onScroll='onScroll' @onPullingUp='loadMore' :pull-up-load='true'>
-            <home-swiper :banners='banners'></home-swiper>
+            <home-swiper :banners='banners' @swiperImageFinishLoad='swiperImageFinishLoad'></home-swiper>
             <recommend-view :recommends='recommends'></recommend-view>
             <feature-view></feature-view>
-            <tab-control ref='tabControl' :titles="['流行','新款','精选']" @tabClick='tabClick'></tab-control>
+            <tab-control ref='tabControl' :titles="['流行','新款','精选']" @tabClick='tabClick'>
+            </tab-control>
             <goods-list :goods="goodsItem"></goods-list>
         </scroll>
         <!-- 监听组件的原生事件时,必需加上.native修饰符 -->
@@ -72,7 +76,8 @@
                 },
                 currentType: 'pop',
                 currentPosition: { y: 0 },
-                tabOffsetTop: 0
+                tabOffsetTop: 0,
+                isTabFixed: false
             }
         },
         //监听属性 类似于data概念
@@ -107,6 +112,14 @@
             onScroll(position) {
                 this.currentPosition = position
                 // console.log(position)
+
+                //设置tabControl是否吸顶
+                this.isTabFixed = (- position.y) > this.tabOffsetTop
+            },
+            swiperImageFinishLoad() {
+                //所有组件都有一个$el
+                this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
+                console.log(this.$refs.tabControl.$el.offsetTop)
             },
             /**
              * 上拉加载
@@ -124,7 +137,7 @@
              */
             getHomeMultidata() {
                 getHomeMultidata().then(res => {
-                    console.log(res)
+                    // console.log(res)
                     this.banners = res.data.banner.list
                     this.recommends = res.data.recommend.list
                 })
@@ -140,7 +153,7 @@
                     let page = good.page + 1
                     //商品数据
                     getHomeGoods(type, page).then(res => {
-                        console.log(res)
+                        // console.log(res)
                         if (res.data.list && res.data.list.length > 0) {
                             good.hasNextPage = true
                             good.list.push(...res.data.list)
@@ -160,7 +173,7 @@
             this.getHomeMultidata()
             this.getHomeGoods('pop')
             this.getHomeGoods('new')
-            this.getHomeGoods('sell')  
+            this.getHomeGoods('sell')
         },
         //生命周期 - 挂载完成（可以访问DOM元素）
         mounted() {
@@ -171,8 +184,8 @@
                 refresh()
                 // console.log('imageFinishLoad')
             })
-
-            // this.tabOffsetTop = this.$refs.tabControl
+            //所有组件都有一个$el
+            // this.tabOffsetTop = this.$refs.tabControl.$el.offsetTop
         },
         beforeCreate() { }, //生命周期 - 创建之前
         beforeMount() { }, //生命周期 - 挂载之前
@@ -193,26 +206,34 @@
     .home-nav {
         background-color: var(--color-tint);
         color: #ffffff;
-
+        /* 
         position: fixed;
         left: 0;
         right: 0;
         top: 0;
 
+        z-index: 9; */
+    }
+
+    .content {
+        overflow: hidden;
+        position: absolute;
+        top: 44px;
+        bottom: 49px;
+        left: 0;
+        right: 0;
+    }
+
+    .tab-control {
+        position: relative;
         z-index: 9;
     }
 
-    /* 
-    .tab-control {
-        position: sticky;
-        top: 44px;
 
-        z-index: 9;
-    } */
-
-    .content {
+    /* .content {
+        position: absolute;
         height: calc(100% - 93px);
         margin-top: 44px;
         overflow: hidden;
-    }
+    } */
 </style>

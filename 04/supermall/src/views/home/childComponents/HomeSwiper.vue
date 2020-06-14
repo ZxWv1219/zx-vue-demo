@@ -4,7 +4,7 @@
         <swiper>
             <swiper-item v-for="(item, index) in banners" :key="index">
                 <a :href="item.link">
-                    <img :src="item.image" alt="">
+                    <img :src="item.image" alt="" @load='imageFinishLoad'>
                 </a>
             </swiper-item>
         </swiper>
@@ -25,6 +25,7 @@
         data() {
             //这里存放数据
             return {
+                isLoad: false
             }
         },
         props: {
@@ -41,7 +42,12 @@
         watch: {},
         //方法集合
         methods: {
-
+            imageFinishLoad() {
+                if (!this.isLoad) {
+                    this.isLoad = true
+                    this.$emit('swiperImageFinishLoad')
+                }
+            }
         },
         //生命周期 - 创建完成（可以访问当前this实例）
         created() {

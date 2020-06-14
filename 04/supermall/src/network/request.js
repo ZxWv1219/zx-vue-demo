@@ -25,7 +25,7 @@ export function request(config) {
         res => {
             //统一判断返回结果成功,失败,异常,或token失效等
             //隐藏loading界面
-            console.log('*************拦截器response返回res.data*************')
+            // console.log('*************拦截器response返回res.data*************')
             return res.data
         },
         err => {
