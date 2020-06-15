@@ -7,15 +7,19 @@ import actions from './actions'
 Vue.use(Vuex)
 
 const state = {
-    //
-    homeTabControlIndex: null
+  homeTabControlIndex: 0,
+  homeTabControlY: {
+    pop: 0,
+    new: 0,
+    sell: 0
+  }
 }
 
 const store = new Vuex.Store({
-    state,
-    mutations,
-    getters,
-    actions
+  state,
+  mutations,
+  getters,
+  actions
 })
 
 export default store

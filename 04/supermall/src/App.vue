@@ -8,16 +8,16 @@
 </template>
 
 <script>
-  import MainTabBar from '@/components/content/tabbar/MainTabBar'
+import MainTabBar from "@/components/content/tabbar/MainTabBar";
 
-  export default {
-    name: 'App',
-    components: {
-      MainTabBar
-    }
+export default {
+  name: "App",
+  components: {
+    MainTabBar
   }
+};
 </script>
 
 <style>
-  @import url('./assets/css/base.css');
+@import url("./assets/css/base.css");
 </style>
