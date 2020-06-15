@@ -46,8 +46,7 @@ import FeatureView from '@/views/home/childComponents/FeatureView'
 import { getHomeMultidata, getHomeGoods } from '@/network/homeService'
 //utils
 import { debounce } from '@/common/utils'
-//store
-import * as types from '@/store/mutations-types'
+
 
 export default {
   //import引入的组件需要注入到对象中才能使用
@@ -107,15 +106,11 @@ export default {
      * @param index 当前选中的索引值
      */
     tabClick(index) {
+      //设置滚动高度
       this.currentType = this.tabMap[index]
       //不够优雅的写法,设置当前选中tab 
       this.$refs.tabControlTop.currentIndex = index
       this.$refs.tabControl.currentIndex = index
-      //获取滚动高度
-      let y = this.tabControlLocation.get(this.currentType) || -this.tabOffsetTop
-      //设置滚动高度
-      this.tabControlLocation.set(this.currentType, this.currentPosition.y)
-      this.currentPosition.y * -1 > this.tabOffsetTop && this.$refs.homeScroll.scrollTo(0, y, 0)
     },
     backClick() {
       // console.log('backClick')

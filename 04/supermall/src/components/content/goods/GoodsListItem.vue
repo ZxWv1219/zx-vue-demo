@@ -43,7 +43,7 @@ export default {
       this.$bus.$emit('imageFinishLoad')
     },
     itemClick() {
-
+      this.$router.push('/detail/' + this.goodsItem.iid)
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）

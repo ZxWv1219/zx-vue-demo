@@ -10,7 +10,11 @@ export function getHomeMultidata() {
     baseURL: 'http://123.207.32.32:8000'
   })
 }
-
+/**
+ * 获取商品数据(接口)
+ * @param {*} type 
+ * @param {*} page 
+ */
 export function getHomeGoods(type, page) {
   return request({
     url: '/home/data',
