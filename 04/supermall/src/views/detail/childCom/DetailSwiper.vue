@@ -1,14 +1,10 @@
 <!--  -->
 <template>
-  <div class>
-    <swiper>
-      <swiper-item v-for="(item, index) in banners" :key="index">
-        <a :href="item.link">
-          <img :src="item.image" alt @load="imageFinishLoad" />
-        </a>
-      </swiper-item>
-    </swiper>
-  </div>
+  <swiper class="detail-swiper-s">
+    <swiper-item v-for="(item, index) in topImages" :key="index">
+      <img :src="item" @load="imageFinishLoad" />
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
@@ -17,6 +13,7 @@
 import { Swiper, SwiperItem } from '@/components/common/swiper/index'
 
 export default {
+  name: "DetailSwiper",
   //import引入的组件需要注入到对象中才能使用
   components: {
     Swiper,
@@ -25,11 +22,11 @@ export default {
   data() {
     //这里存放数据
     return {
-      isLoad: false
+
     }
   },
   props: {
-    banners: {
+    topImages: {
       type: Array,
       default() {
         return []
@@ -43,10 +40,7 @@ export default {
   //方法集合
   methods: {
     imageFinishLoad() {
-      if (!this.isLoad) {
-        this.isLoad = true
-        this.$emit('swiperImageFinishLoad')
-      }
+      // console.log('imageFinishLoad')
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -67,4 +61,8 @@ export default {
 }
 </script>
 <style scoped>
+.detail-swiper-s {
+  height: 300px;
+  overflow: hidden;
+}
 </style>
