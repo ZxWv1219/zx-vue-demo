@@ -2,7 +2,12 @@
 <template>
   <div id="detail">
     <detail-nav-bar></detail-nav-bar>
-    <detail-swiper :topImages="topImages"></detail-swiper>
+    <scroll class="content" ref="detailScroll">
+      <detail-swiper :topImages="topImages"></detail-swiper>
+      <detail-base-info :goods="goods"></detail-base-info>
+      <detail-shop-info :shop="shop"></detail-shop-info>
+      <detail-goods-info :detailInfo="detailInfo" @imageLoad="imageLoad"></detail-goods-info>
+    </scroll>
   </div>
 </template>
 
@@ -11,21 +16,33 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import DetailNavBar from '@/views/detail/childCom/DetailNavBar'
 import DetailSwiper from '@/views/detail/childCom/DetailSwiper'
+import DetailBaseInfo from '@/views/detail/childCom/DetailBaseInfo'
+import DetailShopInfo from '@/views/detail/childCom/DetailShopInfo'
+import DetailGoodsInfo from '@/views/detail/childCom/DetailGoodsInfo'
 
-import { getDetail } from '@/network/detailService'
+import Scroll from '@/components/common/scroll/Scroll'
+
+import { getDetail, Goods, Shop } from '@/network/detailService'
 
 export default {
   name: "Detail",
   //import引入的组件需要注入到对象中才能使用
   components: {
     DetailNavBar,
-    DetailSwiper
+    DetailSwiper,
+    DetailBaseInfo,
+    DetailShopInfo,
+    DetailGoodsInfo,
+    Scroll
   },
   data() {
     //这里存放数据
     return {
       id: null,
-      topImages: []
+      topImages: [],
+      goods: {},
+      shop: {},
+      detailInfo: {},
     }
   },
   //监听属性 类似于data概念
@@ -34,7 +51,9 @@ export default {
   watch: {},
   //方法集合
   methods: {
-
+    imageLoad() {
+      this.$refs.detailScroll.refresh()
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -42,6 +61,12 @@ export default {
       .then(res => {
         console.log(res)
         this.topImages = res.result.itemInfo.topImages
+        //获取商品信息
+        this.goods = new Goods(res.result.itemInfo, res.result.columns, res.result.shopInfo.services)
+        //店铺信息
+        this.shop = new Shop(res.result.shopInfo)
+
+        this.detailInfo = res.result.detailInfo
       })
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
@@ -60,4 +85,15 @@ export default {
 }
 </script>
 <style scoped>
+#detail {
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+  height: 100vh;
+}
+.content {
+  position: absolute;
+  height: calc(100% - 44px);
+  overflow: hidden;
+}
 </style>
