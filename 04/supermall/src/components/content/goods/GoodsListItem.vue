@@ -2,7 +2,7 @@
 <template>
   <div class="goods-item" @click="itemClick">
     <!-- 监听图片加载完成后,刷新滚动条 -->
-    <img :src="goodsItem.show.img" alt @load="imageLoad" />
+    <img :src="imageSrc" alt @load="imageLoad" />
     <div class="goods-info">
       <p>{{goodsItem.title}}</p>
       <span class="price">{{goodsItem.price}}</span>
@@ -33,14 +33,20 @@ export default {
     }
   },
   //监听属性 类似于data概念
-  computed: {},
+  computed: {
+    imageSrc() {
+      return this.goodsItem.image || this.goodsItem.show.img
+    }
+  },
   //监控data中的数据变化
   watch: {},
   //方法集合
   methods: {
     imageLoad() {
       //使用事件总线
-      this.$bus.$emit('imageFinishLoad')
+      this.$route.path.indexOf('/home') > -1 && this.$bus.$emit('imageFinishLoad')
+      this.$route.path.indexOf('/detail') > -1 && this.$bus.$emit('detailImageFinishLoad')
+
     },
     itemClick() {
       this.$router.push('/detail/' + this.goodsItem.iid)
