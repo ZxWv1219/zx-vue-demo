@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div id="detail">
-    <detail-nav-bar @titleClick="titleClick" :currentIndex="currentIndex"></detail-nav-bar>
+    <detail-nav-bar @titleClick="titleClick" :currentIndex="currentIndex" ref="detailnav"></detail-nav-bar>
     <scroll class="content" ref="detailScroll" @onScroll="onScroll" :probeType="3">
       <detail-swiper :topImages="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
@@ -11,6 +11,8 @@
       <detail-comment-info ref="comment" :commentInfo="commentInfo"></detail-comment-info>
       <goods-list ref="recommend" :goods="recommends"></goods-list>
     </scroll>
+    <detail-bottom-bar @addToCart="addToCart"></detail-bottom-bar>
+    <back-top @click.native="backClick" v-show="isShowBackTop"></back-top>
   </div>
 </template>
 
@@ -24,10 +26,12 @@ import DetailShopInfo from '@/views/detail/childCom/DetailShopInfo'
 import DetailGoodsInfo from '@/views/detail/childCom/DetailGoodsInfo'
 import DetailParamInfo from '@/views/detail/childCom/DetailParamInfo'
 import DetailCommentInfo from '@/views/detail/childCom/DetailCommentInfo'
+import DetailBottomBar from '@/views/detail/childCom/DetailBottomBar'
 
 import GoodsList from '@/components/content/goods/GoodsList'
 
 import Scroll from '@/components/common/scroll/Scroll'
+import BackTop from '@/components/content/backTop/BackTop'
 
 import { getDetail, Goods, Shop, GoodsParam, getRecommend } from '@/network/detailService'
 import { debounce } from '@/common/utils'
@@ -43,8 +47,10 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
+    DetailBottomBar,
     GoodsList,
-    Scroll
+    Scroll,
+    BackTop
   },
   data() {
     //这里存放数据
@@ -59,7 +65,8 @@ export default {
       recommends: [],
       themeTopYs: [],
       setTopYs: null,
-      currentIndex: 0
+      currentIndex: 0,
+      isShowBackTop: false
     }
   },
   //监听属性 类似于data概念
@@ -68,6 +75,12 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    backClick() {
+      this.$refs.detailScroll.scrollTo()
+    },
+    addToCart() {
+      console.log('addToCart')
+    },
     imageLoad() {
       this.$refs.detailScroll.refresh()
       this.setTopYs()
@@ -78,18 +91,30 @@ export default {
     },
     onScroll(position) {
       // console.log(position)
-      for (let i = 0; i < this.themeTopYs.length; i++)
-        this.currentIndex !== i
-          && (
-            (i < this.themeTopYs.length - 1)
-            && -position.y >= this.themeTopYs[i]
-            && -position.y < this.themeTopYs[i + 1]
-            && (this.currentIndex = i)
-            || (-position.y >= this.themeTopYs[i]
-              && (this.currentIndex = i))
-          )
-    }
+      for (let i = 0; i < this.themeTopYs.length - 1; i++) {
+        // if (this.currentIndex !== i && (
+        //   (i < this.themeTopYs.length - 1)
+        //   && -position.y >= this.themeTopYs[i]
+        //   && -position.y < this.themeTopYs[i + 1]
+        //   || (i === this.themeTopYs.length - 1 && -position.y >= this.themeTopYs[i])
+        // )
+        // ) {
+        //   this.currentIndex = i
+        //   console.log(this.currentIndex)
+        //   this.$refs.detailnav.currentIndex = this.currentIndex
+        // }
+        if (this.currentIndex !== i && (
+          (i < this.themeTopYs.length - 1)
+          && -position.y >= this.themeTopYs[i]
+          && -position.y < this.themeTopYs[i + 1])) {
+          this.currentIndex = i
+          // console.log(this.currentIndex)
+          this.$refs.detailnav.currentIndex = this.currentIndex
+        }
 
+        this.isShowBackTop = -position.y > 1000
+      }
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -124,6 +149,7 @@ export default {
       this.themeTopYs.push(this.$refs.params.$el.offsetTop)
       this.themeTopYs.push(this.$refs.comment.$el.offsetTop)
       this.themeTopYs.push(this.$refs.recommend.$el.offsetTop)
+      this.themeTopYs.push(Number.MAX_VALUE)
       console.log(this.themeTopYs)
     }, 200)
     //刷新可滚动高度
@@ -157,7 +183,7 @@ export default {
 }
 .content {
   position: absolute;
-  height: calc(100% - 44px);
+  height: calc(100% - 102px);
   overflow: hidden;
 }
 </style>
