@@ -36,6 +36,7 @@ import BackTop from '@/components/content/backTop/BackTop'
 import { getDetail, Goods, Shop, GoodsParam, getRecommend } from '@/network/detailService'
 import { debounce } from '@/common/utils'
 
+
 export default {
   name: "Detail",
   //import引入的组件需要注入到对象中才能使用
@@ -80,6 +81,7 @@ export default {
     },
     addToCart() {
       console.log('addToCart')
+      this.$toast.show('message')
     },
     imageLoad() {
       this.$refs.detailScroll.refresh()
