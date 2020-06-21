@@ -38,6 +38,7 @@ export default {
   methods: {
     show(message, time = 2000) {
       console.log(message)
+      //当已经有toast显示时取消原有显示,展示最新显示
       if (this.timer) clearTimeout(this.timer)
 
       this.message = message
